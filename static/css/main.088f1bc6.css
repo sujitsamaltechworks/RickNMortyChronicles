@@ -1,0 +1,2 @@
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-family:Poppins,sans-serif;margin:0}.pagination{display:flex;justify-content:center;list-style:none;margin:32px 0;padding:0}.pagination li{cursor:pointer;margin:0 5px}.pagination li a{border:1px solid #ddd;border-radius:4px;color:#007bff;padding:10px 15px;text-decoration:none}.pagination li.active a{background-color:#007bff;color:#fff}.pagination li.disabled a{color:#ddd}
+/*# sourceMappingURL=main.088f1bc6.css.map*/

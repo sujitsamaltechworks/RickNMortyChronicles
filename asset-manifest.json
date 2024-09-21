@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ricknmortychronicles/static/css/main.088f1bc6.css",
+    "main.js": "/ricknmortychronicles/static/js/main.2fdf9e54.js",
+    "index.html": "/ricknmortychronicles/index.html",
+    "main.088f1bc6.css.map": "/ricknmortychronicles/static/css/main.088f1bc6.css.map",
+    "main.2fdf9e54.js.map": "/ricknmortychronicles/static/js/main.2fdf9e54.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.088f1bc6.css",
+    "static/js/main.2fdf9e54.js"
+  ]
+}
