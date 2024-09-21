@@ -21,7 +21,7 @@ function App() {
                         element={<CharacterDetailsPage />}
                     />
                 </Routes>
-                <Footer />
+                {/* <Footer /> */}
             </BrowserRouter>
         </div>
     )

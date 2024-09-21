@@ -6,8 +6,14 @@ type Props = {
 }
 
 const SearchbarContainer = styled.div`
-    width: 90%;
-    margin-left: 32px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px 0;
+
+    @media (min-width: 768px) {
+        width: 50%;
+    }
 `
 
 const Searchbar = ({ searchTextHandler }: Props) => {

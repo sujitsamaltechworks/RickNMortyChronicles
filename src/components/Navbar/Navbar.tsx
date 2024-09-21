@@ -9,6 +9,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 `
 
 const Logo = styled.img`
@@ -19,27 +20,35 @@ const Logo = styled.img`
 const LinkPages = styled.div`
     display: flex;
     gap: 16px;
+    flex-wrap: wrap;
 `
 
 const LinkItem = styled(Link)`
     color: black;
     text-decoration: none;
     position: relative;
+    padding: 8px 12px;
 
     &::after {
         content: '';
         position: absolute;
         width: 100%;
         height: 2px;
-        background-color: darkgreen; /* Underline color */
-        bottom: -2px; /* Position of the underline */
+        background-color: darkgreen;
+        bottom: -2px;
         left: 0;
-        opacity: 0; /* Default opacity for non-active links */
-        transition: opacity 0.2s ease-in-out; /* Transition for underline animation */
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
     }
 
     &.active::after {
-        opacity: 1; /* Opacity for active link underline */
+        opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 8px;
     }
 `
 

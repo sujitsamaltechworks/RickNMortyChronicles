@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
+import styled from '@emotion/styled'
 import { useGetAllCharacters } from '../../hooks/character.hook'
 import Card from '../../components/Card/Card'
 import Searchbar from '../../components/Searchbar/Searchbar'
+import Filterpanel from '../../components/Filterpanel/Filterpanel'
 
 interface HomepageProps {}
+
+const Headingh1 = styled.h1`
+    text-align: center;
+`
 
 const Homepage = ({}: HomepageProps) => {
     const [page, setPage] = useState(1)
@@ -16,9 +22,9 @@ const Homepage = ({}: HomepageProps) => {
 
     // Destructure results and pagination info
     const characters = data?.results
-    const info = data?.info // Info object for pagination, includes total pages
+    const info = data?.info
 
-    // Debounce logic for search text
+    // Debounce for search text
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setDebouncedSearchText(searchText)
@@ -42,13 +48,20 @@ const Homepage = ({}: HomepageProps) => {
      * @param data Pagination data from react-paginate (selected page index)
      */
     const handlePageClick = (data: { selected: number }) => {
-        setPage(data.selected + 1) // react-paginate is zero-indexed, so we add 1
+        setPage(data.selected + 1)
     }
+
+    // Determine pagination settings based on window size
+    const isSmallScreen = window.innerWidth < 768
+    const marginPagesDisplayed = isSmallScreen ? 1 : 2
+    const pageRangeDisplayed = isSmallScreen ? 2 : 3
 
     return (
         <div className="container">
             <div className="row">
+                <Headingh1>CHARACTERS</Headingh1>
                 <Searchbar searchTextHandler={handleSearchText} />
+                <Filterpanel />
 
                 {isLoading ? (
                     <p>Loading...</p>
@@ -69,15 +82,15 @@ const Homepage = ({}: HomepageProps) => {
                 )}
             </div>
 
-            {/* Render react-paginate if pagination info is available */}
+            {/* Pagination */}
             {info && (
                 <ReactPaginate
                     previousLabel={'Previous'}
                     nextLabel={'Next'}
                     breakLabel={'...'}
                     pageCount={info.pages}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={marginPagesDisplayed}
+                    pageRangeDisplayed={pageRangeDisplayed}
                     onPageChange={handlePageClick}
                     forcePage={page - 1}
                     containerClassName={'pagination'}
