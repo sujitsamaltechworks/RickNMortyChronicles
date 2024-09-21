@@ -5,6 +5,7 @@ import Homepage from './pages/Homepage/Homepage'
 import Episodes from './pages/Episodes/Episodes'
 import Locations from './pages/Locations/Locations'
 import CharacterDetailsPage from './pages/CharacterDetailPage/CharacterDetailPage'
+import Footer from './components/Footer/Footer'
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                         element={<CharacterDetailsPage />}
                     />
                 </Routes>
+                <Footer />
             </BrowserRouter>
         </div>
     )
