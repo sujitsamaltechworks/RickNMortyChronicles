@@ -21,6 +21,8 @@ interface Character {
     episode: string[]
 }
 
+interface Props {}
+
 const CharacterDetailsContainer = styled.div`
     display: flex;
     gap: 48px;
@@ -47,7 +49,7 @@ const EpisodesSection = styled.div`
     justify-content: center;
 `
 
-const CharacterDetails = () => {
+export default function CharacterDetails({}: Props) {
     const { id } = useParams()
     const [character, setCharacter] = useState<Character | null>(null)
 
@@ -126,5 +128,3 @@ const CharacterDetails = () => {
         </div>
     )
 }
-
-export default CharacterDetails

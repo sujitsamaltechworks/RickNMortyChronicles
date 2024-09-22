@@ -77,14 +77,6 @@ export default function Navbar({}: Props) {
                 >
                     Locations
                 </LinkItem>
-                <LinkItem
-                    to="/episodes"
-                    className={
-                        location.pathname === '/episodes' ? 'active' : ''
-                    }
-                >
-                    Episodes
-                </LinkItem>
             </LinkPages>
         </Container>
     )

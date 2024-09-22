@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 
-type Props = {
+interface Props {
     id: number
     name: string
     status: string
-    image: string // Added image prop to display character image
+    image: string
 }
 
 const CardContainer = styled.div`
@@ -15,7 +15,7 @@ const CardContainer = styled.div`
     width: 90%;
 `
 
-const Card = ({ id, name, status, image }: Props) => {
+export default function Card({ id, name, status, image }: Props) {
     return (
         <CardContainer className="card">
             <img
@@ -23,7 +23,7 @@ const Card = ({ id, name, status, image }: Props) => {
                 className="card-img-top"
                 alt={`${name} character image`}
             />
-            <div className="card-body"> 
+            <div className="card-body">
                 <h5 className="card-title">{name}</h5>
                 <p className="card-text">
                     Status:{' '}
@@ -40,5 +40,3 @@ const Card = ({ id, name, status, image }: Props) => {
         </CardContainer>
     )
 }
-
-export default Card
