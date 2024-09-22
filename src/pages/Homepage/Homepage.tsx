@@ -25,8 +25,15 @@ const Homepage = ({}: HomepageProps) => {
         episode: '',
     })
 
-    // Fetch characters based on debounced search text or page
-    const { data, isLoading } = useGetAllCharacters(debouncedSearchText, page)
+    // Fetch characters based on debounced search text, page, and filters
+    const { data, isLoading } = useGetAllCharacters(
+        debouncedSearchText,
+        page,
+        filters.status,
+        filters.gender,
+        filters.species,
+        filters.type
+    )
 
     // Destructure results and pagination info
     const characters = data?.results
@@ -41,22 +48,18 @@ const Homepage = ({}: HomepageProps) => {
         return () => clearTimeout(timeoutId)
     }, [searchText])
 
-    /**
-     * @function handleSearchText
-     * @param str search text from Searchbar component
-     */
     const handleSearchText = (str: string) => {
         setSearchText(str)
         setPage(1) // Reset page to 1 when a new search is triggered
     }
 
-    /**
-     * @function handlePageClick
-     * React Paginate event handler when a user clicks on a page number
-     * @param data Pagination data from react-paginate (selected page index)
-     */
     const handlePageClick = (data: { selected: number }) => {
         setPage(data.selected + 1)
+    }
+
+    const handleApplyFilters = (filters: any) => {
+        setFilters(filters) // Update the filters state
+        setPage(1) // Reset page to 1 when filters are applied
     }
 
     // Determine pagination settings based on window size
@@ -69,7 +72,7 @@ const Homepage = ({}: HomepageProps) => {
             <div className="row">
                 <Headingh1>CHARACTERS</Headingh1>
                 <Searchbar searchTextHandler={handleSearchText} />
-                <Filterpanel />
+                <Filterpanel applyFilters={handleApplyFilters} />
 
                 {isLoading ? (
                     <p>Loading...</p>

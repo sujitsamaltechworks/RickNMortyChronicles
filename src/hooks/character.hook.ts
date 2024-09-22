@@ -18,9 +18,8 @@ export const useGetAllCharacters = (
             gender,
             species,
             type,
-        ], // Include all parameters in the query key
+        ],
         queryFn: async () => {
-            // Use URLSearchParams to dynamically build the query string
             const params = new URLSearchParams()
 
             if (page) params.append('page', page.toString())
@@ -35,7 +34,7 @@ export const useGetAllCharacters = (
             )
             return {
                 results: data.results,
-                info: data.info, // Return pagination info (e.g., next and prev pages)
+                info: data.info,
             }
         },
     })
