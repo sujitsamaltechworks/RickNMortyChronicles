@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { useGetFilterOptions } from '../../hooks/filters.hook'
 
 type Props = {}
 
@@ -40,62 +41,84 @@ const FilterSelect = styled.select`
     }
 `
 
-const Filterpanel = (props: Props) => {
+const Filterpanel = () => {
+    const { locations, episodes, characterFilters } = useGetFilterOptions()
+
     return (
         <FilterPanelContainer>
+            {/* Status Filter */}
             <FilterItems>
                 <label>STATUS</label>
-                <FilterSelect
-                    className="form-select"
-                    aria-label="Default select example"
-                >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <FilterSelect>
+                    {characterFilters?.statuses?.map((status: string) => (
+                        <option key={status} value={status}>
+                            {status}
+                        </option>
+                    ))}
                 </FilterSelect>
             </FilterItems>
+
+            {/* Gender Filter */}
             <FilterItems>
                 <label>GENDER</label>
-                <FilterSelect
-                    className="form-select"
-                    aria-label="Default select example"
-                >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <FilterSelect>
+                    {characterFilters?.genders?.map((gender: string) => (
+                        <option key={gender} value={gender}>
+                            {gender}
+                        </option>
+                    ))}
                 </FilterSelect>
             </FilterItems>
-            <FilterItems>
-                <label>TYPE</label>
-                <FilterSelect
-                    className="form-select"
-                    aria-label="Default select example"
-                >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </FilterSelect>
-            </FilterItems>
+
+            {/* Species Filter */}
             <FilterItems>
                 <label>SPECIES</label>
-                <FilterSelect
-                    className="form-select"
-                    aria-label="Default select example"
-                >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <FilterSelect>
+                    {(characterFilters?.species as string[])?.map(
+                        (species: string) => (
+                            <option key={species} value={species}>
+                                {species}
+                            </option>
+                        )
+                    )}
                 </FilterSelect>
             </FilterItems>
+
+            {/* Type Filter */}
+            <FilterItems>
+                <label>TYPE</label>
+                <FilterSelect>
+                    {(characterFilters?.types as string[])?.map(
+                        (type: string) => (
+                            <option key={type} value={type}>
+                                {type}
+                            </option>
+                        )
+                    )}
+                </FilterSelect>
+            </FilterItems>
+
+            {/* Location Filter */}
             <FilterItems>
                 <label>LOCATION</label>
-                <FilterSelect
-                    className="form-select"
-                    aria-label="Default select example"
-                >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <FilterSelect>
+                    {locations?.map((location: any) => (
+                        <option key={location.id} value={location.name}>
+                            {location.name}
+                        </option>
+                    ))}
+                </FilterSelect>
+            </FilterItems>
+
+            {/* Episode Filter */}
+            <FilterItems>
+                <label>EPISODE</label>
+                <FilterSelect>
+                    {episodes?.map((episode: any) => (
+                        <option key={episode.id} value={episode.name}>
+                            {episode.name}
+                        </option>
+                    ))}
                 </FilterSelect>
             </FilterItems>
         </FilterPanelContainer>

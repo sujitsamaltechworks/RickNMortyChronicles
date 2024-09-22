@@ -6,7 +6,7 @@ type Props = {
 }
 
 const SearchbarContainer = styled.div`
-    width: 100%;
+    width: 90%;
     max-width: 600px;
     margin: 0 auto;
     padding: 16px 0;

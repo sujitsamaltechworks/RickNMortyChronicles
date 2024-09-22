@@ -16,6 +16,14 @@ const Homepage = ({}: HomepageProps) => {
     const [page, setPage] = useState(1)
     const [searchText, setSearchText] = useState<string>('')
     const [debouncedSearchText, setDebouncedSearchText] = useState<string>('')
+    const [filters, setFilters] = useState({
+        status: '',
+        gender: '',
+        species: '',
+        type: '',
+        location: '',
+        episode: '',
+    })
 
     // Fetch characters based on debounced search text or page
     const { data, isLoading } = useGetAllCharacters(debouncedSearchText, page)
@@ -53,8 +61,8 @@ const Homepage = ({}: HomepageProps) => {
 
     // Determine pagination settings based on window size
     const isSmallScreen = window.innerWidth < 768
-    const marginPagesDisplayed = isSmallScreen ? 1 : 2
-    const pageRangeDisplayed = isSmallScreen ? 2 : 3
+    const marginPagesDisplayed = isSmallScreen ? 0 : 2
+    const pageRangeDisplayed = isSmallScreen ? 0 : 3
 
     return (
         <div className="container">
