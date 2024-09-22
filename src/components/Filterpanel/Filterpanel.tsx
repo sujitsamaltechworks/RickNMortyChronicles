@@ -74,8 +74,6 @@ const Heading = styled.h4`
     margin-bottom: 16px;
     font-weight: 600;
 `
-
-// Define the structure of character filters
 interface CharacterFilters {
     statuses: string[]
     genders: string[]
@@ -159,13 +157,14 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
             <FilterPanelContainer>
                 {/* Status Filter */}
                 <FilterItems>
-                    <label>STATUS</label>
+                    <label htmlFor="status">STATUS</label>
                     <FilterSelect
+                        id="status"
                         value={selectedStatus}
                         onChange={(e) => setSelectedStatus(e.target.value)}
                     >
                         <option value="">Choose</option>
-                        {characterFilters?.statuses?.map((status: string) => (
+                        {characterFilters?.statuses?.map((status) => (
                             <option key={status} value={status}>
                                 {status}
                             </option>
@@ -175,13 +174,14 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
 
                 {/* Gender Filter */}
                 <FilterItems>
-                    <label>GENDER</label>
+                    <label htmlFor="gender">GENDER</label>
                     <FilterSelect
+                        id="gender"
                         value={selectedGender}
                         onChange={(e) => setSelectedGender(e.target.value)}
                     >
                         <option value="">Choose</option>
-                        {characterFilters?.genders?.map((gender: string) => (
+                        {characterFilters?.genders?.map((gender) => (
                             <option key={gender} value={gender}>
                                 {gender}
                             </option>
@@ -191,13 +191,14 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
 
                 {/* Species Filter */}
                 <FilterItems>
-                    <label>SPECIES</label>
+                    <label htmlFor="species">SPECIES</label>
                     <FilterSelect
+                        id="species"
                         value={selectedSpecies}
                         onChange={(e) => setSelectedSpecies(e.target.value)}
                     >
                         <option value="">Choose</option>
-                        {characterFilters?.species?.map((species: string) => (
+                        {characterFilters?.species?.map((species) => (
                             <option key={species} value={species}>
                                 {species}
                             </option>
@@ -207,13 +208,14 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
 
                 {/* Type Filter */}
                 <FilterItems>
-                    <label>TYPE</label>
+                    <label htmlFor="type">TYPE</label>
                     <FilterSelect
+                        id="type"
                         value={selectedType}
                         onChange={(e) => setSelectedType(e.target.value)}
                     >
                         <option value="">Choose</option>
-                        {characterFilters?.types?.map((type: string) => (
+                        {characterFilters?.types?.map((type) => (
                             <option key={type} value={type}>
                                 {type}
                             </option>
@@ -223,13 +225,14 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
 
                 {/* Location Filter */}
                 <FilterItems>
-                    <label>LOCATION</label>
+                    <label htmlFor="location">LOCATION</label>
                     <FilterSelect
+                        id="location"
                         value={selectedLocation}
                         onChange={(e) => setSelectedLocation(e.target.value)}
                     >
                         <option value="">Choose</option>
-                        {locations?.map((location: Location) => (
+                        {locations?.map((location) => (
                             <option key={location.id} value={location.name}>
                                 {location.name}
                             </option>
@@ -239,13 +242,14 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
 
                 {/* Episode Filter */}
                 <FilterItems>
-                    <label>EPISODE</label>
+                    <label htmlFor="episode">EPISODE</label>
                     <FilterSelect
+                        id="episode"
                         value={selectedEpisode}
                         onChange={(e) => setSelectedEpisode(e.target.value)}
                     >
                         <option value="">Choose</option>
-                        {episodes?.map((episode: Episode) => (
+                        {episodes?.map((episode) => (
                             <option key={episode.id} value={episode.name}>
                                 {episode.name}
                             </option>
