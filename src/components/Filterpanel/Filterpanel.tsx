@@ -95,8 +95,7 @@ interface FilterPanelProps {
 }
 
 export default function Filterpanel({ applyFilters }: FilterPanelProps) {
-    const { characterFilters } =
-        useGetFilterOptions() as FilterOptions
+    const { characterFilters } = useGetFilterOptions() as FilterOptions
 
     // Storing selected values
     const [selectedStatus, setSelectedStatus] = useState<string>('')
@@ -110,7 +109,7 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
             status: selectedStatus,
             gender: selectedGender,
             species: selectedSpecies,
-            type: selectedType
+            type: selectedType,
         }
         applyFilters(filters)
     }
@@ -125,7 +124,7 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
             status: '',
             gender: '',
             species: '',
-            type: ''
+            type: '',
         })
     }
 

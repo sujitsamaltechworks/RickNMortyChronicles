@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import styled from '@emotion/styled'
+import styled from '@emotion/styled' // Assuming you have a hook for episodes
 import {
-    useGetCharactersByLocation,
-    useGetLocations,
-} from '../../hooks/location.hook'
+    useGetCharactersByEpisode,
+    useGetEpisodes,
+} from '../../hooks/episode.hook'
 
-interface Location {
+interface Episode {
     id: number
     name: string
 }
 
 interface Props {}
 
-const LocationsContainer = styled.div`
+const EpisodesContainer = styled.div`
     padding: 20px;
 `
 
@@ -22,10 +22,6 @@ const FilterSelect = styled.select`
     font-size: 14px;
     border-radius: 4px;
     border: 1px solid #ccc;
-
-    @media (max-width: 768px) {
-        width: 100%;
-    }
 `
 
 const CharactersList = styled.div`
@@ -54,47 +50,45 @@ const ErrorText = styled.div`
     margin-top: 20px;
 `
 
-export default function LocationPage({}: Props) {
+export default function EpisodesPage({}: Props) {
     const {
-        data: locations,
-        isLoading: locationsLoading,
-        error: locationsError,
-    } = useGetLocations()
-    const [selectedLocation, setSelectedLocation] = useState<number | null>(
-        null
-    )
+        data: episodes,
+        isLoading: episodesLoading,
+        error: episodesError,
+    } = useGetEpisodes()
+
+    const [selectedEpisode, setSelectedEpisode] = useState<number | null>(null)
+
     const {
         data: characters,
         isLoading: charactersLoading,
         error: charactersError,
-    } = useGetCharactersByLocation(selectedLocation)
+    } = useGetCharactersByEpisode(selectedEpisode)
 
     return (
-        <LocationsContainer>
-            {/* Handle loading and error states for locations */}
-            {locationsLoading && (
-                <LoadingIndicator>Loading locations...</LoadingIndicator>
+        <EpisodesContainer>
+            {/* Handling loading and error states for episodes */}
+            {episodesLoading && (
+                <LoadingIndicator>Loading episodes...</LoadingIndicator>
             )}
-            {locationsError && <ErrorText>Error loading locations</ErrorText>}
+            {episodesError && <ErrorText>Error loading episodes</ErrorText>}
 
-            {!locationsLoading && !locationsError && locations && (
+            {!episodesLoading && !episodesError && episodes && (
                 <FilterSelect
-                    value={selectedLocation || ''}
-                    onChange={(e) =>
-                        setSelectedLocation(Number(e.target.value))
-                    }
+                    value={selectedEpisode || ''}
+                    onChange={(e) => setSelectedEpisode(Number(e.target.value))}
                 >
-                    <option value="">Select a location</option>
-                    {locations.map((location) => (
-                        <option key={location.id} value={location.id}>
-                            {location.name}
+                    <option value="">Select an episode</option>
+                    {episodes.map((episode) => (
+                        <option key={episode.id} value={episode.id}>
+                            {episode.name}
                         </option>
                     ))}
                 </FilterSelect>
             )}
 
-            {/* Handle selected location's characters */}
-            {selectedLocation && (
+            {/* Handle selected episode's characters */}
+            {selectedEpisode && (
                 <>
                     {charactersLoading && (
                         <LoadingIndicator>
@@ -107,7 +101,7 @@ export default function LocationPage({}: Props) {
 
                     {characters && !charactersLoading && !charactersError && (
                         <CharactersList>
-                            <h4>Characters in this location:</h4>
+                            <h4>Characters in this episode:</h4>
                             {characters.map((character: any) => (
                                 <CharacterItem key={character.id}>
                                     {character.name}
@@ -117,6 +111,6 @@ export default function LocationPage({}: Props) {
                     )}
                 </>
             )}
-        </LocationsContainer>
+        </EpisodesContainer>
     )
 }
