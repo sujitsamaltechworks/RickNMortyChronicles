@@ -1,55 +1,46 @@
-// hooks/locations.hook.ts
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
+import { apiInstance } from '../api/api'
 
-export const useGetLocations = () => {
-    const [locations, setLocations] = useState<any[]>([])
-    const [loading, setLoading] = useState(true)
+// Function to fetch all pages of paginated data
+const fetchAllPages = async (endpoint: string) => {
+    let allResults: any[] = []
+    let nextUrl = endpoint
 
-    useEffect(() => {
-        const fetchLocations = async () => {
-            try {
-                const response = await axios.get(
-                    'https://rickandmortyapi.com/api/location'
-                )
-                setLocations(response.data.results)
-            } catch (error) {
-                console.error('Error fetching locations:', error)
-            } finally {
-                setLoading(false)
-            }
-        }
+    while (nextUrl) {
+        const { data } = await apiInstance.get(nextUrl)
+        allResults = [...allResults, ...data.results]
+        nextUrl = data.info?.next || null
+    }
 
-        fetchLocations()
-    }, [])
-
-    return { locations, loading }
+    return allResults
 }
 
+// Hook to fetch all available locations
+export const useGetLocations = () => {
+    return useQuery({
+        queryKey: ['locations'],
+        queryFn: async () => await fetchAllPages('/location'),
+    })
+}
+
+// Hook to fetch all characters by location ID
 export const useGetCharactersByLocation = (locationId: number | null) => {
-    const [characters, setCharacters] = useState<any[]>([])
-
-    useEffect(() => {
-        const fetchCharacters = async () => {
+    return useQuery({
+        queryKey: ['charactersByLocation', locationId],
+        queryFn: async () => {
             if (locationId) {
-                try {
-                    const response = await axios.get(
-                        `https://rickandmortyapi.com/api/location/${locationId}`
-                    )
-                    const characterPromises = response.data.residents.map(
-                        (url: string) => axios.get(url)
-                    )
-                    const characterResponses =
-                        await Promise.all(characterPromises)
-                    setCharacters(characterResponses.map((res) => res.data))
-                } catch (error) {
-                    console.error('Error fetching characters:', error)
-                }
+                const { data } = await apiInstance.get(
+                    `/location/${locationId}`
+                )
+                const characterPromises = data.residents.map((url: string) =>
+                    apiInstance.get(url)
+                )
+                const characterResponses = await Promise.all(characterPromises)
+                return characterResponses.map((res) => res.data)
+            } else {
+                return []
             }
-        }
-
-        fetchCharacters()
-    }, [locationId])
-
-    return { characters }
+        },
+        enabled: !!locationId, // Ensures the query runs only when locationId is provided
+    })
 }

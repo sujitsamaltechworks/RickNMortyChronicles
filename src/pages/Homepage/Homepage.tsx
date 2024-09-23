@@ -32,7 +32,7 @@ const Homepage = ({}: HomepageProps) => {
         filters.status,
         filters.gender,
         filters.species,
-        filters.type
+        filters.type,
     )
 
     // Destructure results and pagination info

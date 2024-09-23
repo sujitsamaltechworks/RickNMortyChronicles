@@ -81,19 +81,7 @@ interface CharacterFilters {
     types: string[]
 }
 
-interface Episode {
-    id: number
-    name: string
-}
-
-interface Location {
-    id: number
-    name: string
-}
-
 interface FilterOptions {
-    locations: Location[]
-    episodes: Episode[]
     characterFilters: CharacterFilters
 }
 
@@ -103,13 +91,11 @@ interface FilterPanelProps {
         gender: string
         species: string
         type: string
-        location: string
-        episode: string
     }) => void
 }
 
 export default function Filterpanel({ applyFilters }: FilterPanelProps) {
-    const { locations, episodes, characterFilters } =
+    const { characterFilters } =
         useGetFilterOptions() as FilterOptions
 
     // Storing selected values
@@ -117,8 +103,6 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
     const [selectedGender, setSelectedGender] = useState<string>('')
     const [selectedSpecies, setSelectedSpecies] = useState<string>('')
     const [selectedType, setSelectedType] = useState<string>('')
-    const [selectedLocation, setSelectedLocation] = useState<string>('')
-    const [selectedEpisode, setSelectedEpisode] = useState<string>('')
 
     // Function to handle apply filter button click
     const handleApplyFilters = () => {
@@ -126,9 +110,7 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
             status: selectedStatus,
             gender: selectedGender,
             species: selectedSpecies,
-            type: selectedType,
-            location: selectedLocation,
-            episode: selectedEpisode,
+            type: selectedType
         }
         applyFilters(filters)
     }
@@ -139,15 +121,11 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
         setSelectedGender('')
         setSelectedSpecies('')
         setSelectedType('')
-        setSelectedLocation('')
-        setSelectedEpisode('')
         applyFilters({
             status: '',
             gender: '',
             species: '',
-            type: '',
-            location: '',
-            episode: '',
+            type: ''
         })
     }
 
@@ -218,40 +196,6 @@ export default function Filterpanel({ applyFilters }: FilterPanelProps) {
                         {characterFilters?.types?.map((type) => (
                             <option key={type} value={type}>
                                 {type}
-                            </option>
-                        ))}
-                    </FilterSelect>
-                </FilterItems>
-
-                {/* Location Filter */}
-                <FilterItems>
-                    <label htmlFor="location">LOCATION</label>
-                    <FilterSelect
-                        id="location"
-                        value={selectedLocation}
-                        onChange={(e) => setSelectedLocation(e.target.value)}
-                    >
-                        <option value="">Choose</option>
-                        {locations?.map((location) => (
-                            <option key={location.id} value={location.name}>
-                                {location.name}
-                            </option>
-                        ))}
-                    </FilterSelect>
-                </FilterItems>
-
-                {/* Episode Filter */}
-                <FilterItems>
-                    <label htmlFor="episode">EPISODE</label>
-                    <FilterSelect
-                        id="episode"
-                        value={selectedEpisode}
-                        onChange={(e) => setSelectedEpisode(e.target.value)}
-                    >
-                        <option value="">Choose</option>
-                        {episodes?.map((episode) => (
-                            <option key={episode.id} value={episode.name}>
-                                {episode.name}
                             </option>
                         ))}
                     </FilterSelect>
