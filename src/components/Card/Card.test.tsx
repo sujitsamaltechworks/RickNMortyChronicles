@@ -31,7 +31,6 @@ describe('Card Component', () => {
     })
 
     it('renders the character status', () => {
-        // Using a regex matcher to match the status text
         expect(screen.getByText(/🟢 Alive/i)).toBeInTheDocument()
     })
 
